@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet"> 
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+    .manage-page{
+        min-width: 120px;
+        font-size: 16px;
+        line-height: 16px;
+    }
+    </style>
+    {% block style %}
+    {% endblock %}
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-nav-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Huu</a>
+            </div>
+             <div class="collapse navbar-collapse" id="collapse-nav-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span>  日志<span class="sr-only">(current)</span></a></li>
+                <li><a target="_blank" href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000"><span class="glyphicon glyphicon-book"></span>  教程</a></li>
+                <li><a target="_blank" href="https://github.com/michaelliao/awesome-python3-webapp"><span class="glyphicon glyphicon-console"></span>  源码</a></li>
+            </ul>
+            {% if user %}
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.admin %}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user active"></span>  {{user.name}}</span></a>
+                    <ul class="dropdown-menu manage-page">
+                        <li><a href="#"><span class="glyphicon glyphicon-align-justify"></span>  管理界面</a></li>
+                    </ul>
+                </li>
+                {% else %}
+                <li><a href="#">{{user}} <span class="glyphicon glyphicon-user"></span>  </a></li>
+                {%endif%}
+                <li><a href="#">登出 <span class="glyphicon glyphicon-log-out"></span>  </a></li>
+            </ul>
+            {%else%}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>  登录</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-pencil"></span>  注册</a></li>
+            </ul>
+            {%endif%}
+            </div>
+    </nav>
+   {% block content %} 
+   {% endblock %}
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    {% block scripts %} 
+    {% endblock %}
+</body>
+
+</html>

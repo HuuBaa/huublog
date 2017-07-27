@@ -1,13 +1,29 @@
-<!doctype html>
-<html>
-<head>
-	<title>Hello from Template</title>	
-</head>
-<body>
-	{% if name %}
-		<h1>Hello {{name}}!</h1>
-	{% else %}
-		<h1>Hello world!<h1>
-	{% endif %}
-</body>
-</html>
+{% extends "__base__.html" %} 
+{% block title %} 
+    {% if name %} 
+        {{ name }} 
+    {% else %}
+        you 
+    {% endif %} 
+{% endblock %} 
+{% block style %}
+<style>
+p {
+    color: red;
+    font-size: 20px;
+}
+</style>
+{% endblock %} 
+{% block content %}
+<div class="container">
+    {% if name %}
+    <p>hello,{{name}}</p>
+    {% else %}
+    <p>hello,you</p>
+    {% endif %}
+</div>
+{% endblock %} 
+{% block scripts%}
+<script>
+</script>
+{% endblock %}
