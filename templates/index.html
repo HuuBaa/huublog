@@ -1,0 +1,100 @@
+{% extends "__base__.html" %} 
+{% block title %} 
+    {% if name %} 
+        {{ name }} 
+    {% else %}
+        you 
+    {% endif %} 
+{% endblock %} 
+{% block style %}
+<style>
+.blog-time{
+    color: rgb(153, 153, 153);
+    font-size: 12px;
+}
+.blog-content a{
+    text-decoration: none;
+}
+.pages{
+    text-align: center;
+    margin-top: -20px;
+    
+}
+
+.fri-links{
+
+}
+
+</style>
+{% endblock %} 
+{% block content %}
+    <div class="container">
+    <div class="row">      
+        <div class="col-md-9">
+            <div class="main-content">
+            <div class="panel panel-info">
+                <div class="panel-body blog-content">
+                    <h3><a href="#" >重构Bootstrap</a><small class="blog-time">   发表于2017.01.01</small></h3>                                            
+                    <p>summary</p>
+                    <p><a href="#" >继续阅读>></a></p>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-body blog-content">
+                    <h3><a href="#" >重构Bootstrap</a><small class="blog-time">   发表于2017.01.01</small></h3> 
+                                                
+                    <p>summary</p>
+                    <p><a href="#" >继续阅读>></a></p>
+                </div>
+            </div><div class="panel panel-info">
+                <div class="panel-body blog-content">
+                    <h3><a href="#" >重构Bootstrap</a><small class="blog-time">   发表于2017.01.01</small></h3>
+                                                  
+                    <p>萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶
+                    萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶</p>
+                    <p><a href="#" >继续阅读>></a></p>
+                </div>
+            </div>
+            <div class="pages">
+                <nav aria-label="Page navigation">           
+                <ul class="pagination pagination-sm">
+                <li class="disabled">
+                  <a href="#" aria-label="Previous" > 
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="active"><a href="#" >1</a></li>
+                
+                <li>
+                  <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+                </nav>
+            </div> 
+            </div>
+            
+ 
+        </div>
+        <div class="col-md-3">
+            <div class="fri-links">
+                <h4>友情链接</h4>
+                <hr>
+                <p><span class="glyphicon glyphicon-link"></span><a href=""> Git教程</a></p>
+                <hr>
+                <p><a href=""><span class="glyphicon glyphicon-link"></span> CSND博客</a></p>
+                <hr>
+                <p><a href=""><span class="glyphicon glyphicon-link"></span> JS教程</a></p>
+                <hr>
+            </div>
+        </div>
+    </div>
+       
+</div>
+    </div>
+{% endblock %} 
+{% block scripts%}
+<script>
+</script>
+{% endblock %}

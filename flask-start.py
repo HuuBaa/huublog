@@ -6,10 +6,9 @@ app=Flask(__name__)
 user={'admin':1,'name':'Huu'}
 
 
-@app.route('/hello/',methods=['GET'])
-@app.route('/hello/<name>',methods=['GET'])
+@app.route('/',methods=['GET'])
 def hello(name=None):
-	return render_template('hello.html',name=name,user=user)
+	return render_template('index.html',name=name,user=user)
 	
 		
 if __name__=='__main__':
