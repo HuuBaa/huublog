@@ -1,7 +1,7 @@
 {% extends "__base__.html" %} 
 {% block title %} 
-    {% if name %} 
-        {{ name }} 
+    {% if user %} 
+        {{ user.name }} 
     {% else %}
         you 
     {% endif %} 
@@ -17,14 +17,8 @@
 }
 .pages{
     text-align: center;
-    margin-top: -20px;
-    
+    margin-top: -20px;  
 }
-
-.fri-links{
-
-}
-
 </style>
 {% endblock %} 
 {% block content %}

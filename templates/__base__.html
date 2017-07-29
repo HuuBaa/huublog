@@ -18,14 +18,15 @@
         line-height: 16px;
     }
     .footer {
-        height: 120px;
+        height: 150px;
     }
     .html5icon {
         padding-top: 20px;
         text-align: center;
     }
     </style>
-    {% block style %} {% endblock %}
+    {% block style %}
+    {% endblock %}
 </head>
 
 <body>
@@ -56,7 +57,7 @@
                         </ul>
                     </li>
                     {% else %}
-                    <li><a href="#">{{user}} <span class="glyphicon glyphicon-user"></span>  </a></li>
+                    <li><a href="#">{{user.name}} <span class="glyphicon glyphicon-user"></span>  </a></li>
                     {%endif%}
                     <li><a href="#">登出 <span class="glyphicon glyphicon-log-out"></span>  </a></li>
                 </ul>
