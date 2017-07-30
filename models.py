@@ -58,14 +58,3 @@ def drop_db():
 
 DBSession=sessionmaker(bind=engine)
 
-
-# session=DBSession()
-# session.add(Users(name='Huu2',email='test@qq.com',admin=0))
-# session.commit()
-# session.close()
-
-
-session=DBSession()
-user=session.query(Users).all()[0]
-session.close()
-print(user.to_dict)

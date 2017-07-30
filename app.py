@@ -5,8 +5,11 @@ from flask import request
 from flask import render_template
 from flask import jsonify
 
-from models import DBSession,Users,Blogs,Comments
+from sqlalchemy.sql import func
 from datetime import datetime
+
+from models import DBSession,Users,Blogs,Comments
+from page import getPageStr,Page
 app=Flask(__name__)
 
 def timeFormat(create_at):
@@ -15,10 +18,22 @@ def timeFormat(create_at):
 	return dt.strftime('%Y-%m-%d %H:%M:%S')
 app.add_template_filter(timeFormat,'timeFormat')
 
-def queryAllDesc(table_class):
+def queryNumById(table_class):
 	session=DBSession()
-	qClass=session.query(table_class).order_by(table_class.create_at.desc()).all()
-	session.close()	
+	qNum=session.query(func.count(table_class.id)).scalar()
+	session.close()
+	return qNum
+
+def queryAllDesc(table_class,offset=None,limit=None):
+	if offset is None and limit is None:
+		session=DBSession()
+		qClass=session.query(table_class).order_by(table_class.create_at.desc()).all()
+		session.close()
+	else:
+		session=DBSession()
+		qClass=session.query(table_class).order_by(table_class.create_at.desc()).offset(offset).limit(limit).all()
+		session.close()
+
 	for user in qClass:
 		user.passwd='******'
 	qClass_list=[]
@@ -37,18 +52,21 @@ def index(user=None):
 #获取用户api
 @app.route('/api/users',methods=['GET'])
 def get_users_api():
-	users_list=queryAllDesc(Users)
+	users_list=queryAllDesc(Users)	
 	return jsonify(users=users_list)
 
 @app.route('/manage/users',methods=['GET'])
 def manage_users():
+	item_count=queryNumById(Users)
 	try:
-		page=request.args['page']
+		page_arg=request.args['page']
 	except:
-		page='1'
-	users_list=queryAllDesc(Users)
+		page_arg='1'
+	page_index=getPageStr(page_arg)
+	page=Page(item_count,page_index)
+	
+	users_list=queryAllDesc(Users,page.offset,page.limit)
 	return render_template('manage_users.html',users=users_list,page=page)
 
 if __name__=='__main__':
 	app.run(debug=True)
-

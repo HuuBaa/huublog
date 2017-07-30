@@ -12,6 +12,7 @@
 table th,td{
     width: 33.33%;
 }
+
 </style>
 {% endblock %}
 
@@ -42,5 +43,44 @@ table th,td{
             </tbody>
         </table>
     </div>
+ 
+    <div class="center-block" style="width: 100px">
+        <nav aria-label="Page navigation" >
+      <ul class="pagination ">
+        {% if page.has_prev %}
+        <li>
+          <a href="/manage/users?page={{page.page_index-1}}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        {% else %}
+        <li class="disabled">
+          <span>
+            <span aria-hidden="true">&laquo;</span>
+          </span>
+        </li>
+        {% endif %}
+
+        <li class="active"><a href="#">{{page.page_index}}</a></li>
+
+        {% if page.has_next %}
+        <li>
+          <a href="/manage/users?page={{page.page_index+1}}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        {% else %}
+        <li class="disabled">
+          <span>
+            <span aria-hidden="true">&raquo;</span>
+          </span>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+    </div>
+    
+     
+
 </div>
 {% endblock %}
