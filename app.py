@@ -10,7 +10,9 @@ from datetime import datetime
 
 from models import DBSession,Users,Blogs,Comments
 from page import getPageStr,Page
+
 import hashlib
+
 app=Flask(__name__)
 
 def timeFormat(create_at):
@@ -23,10 +25,12 @@ def queryNumById(table_class):
 	sess=DBSession()
 	qNum=sess.query(func.count(table_class.id)).scalar()
 	sess.close()
+
 	return qNum
 
 def queryAllDesc(table_class,offset=None,limit=None):
 	if offset is None and limit is None:
+
 		sess=DBSession()
 		qClass=sess.query(table_class).order_by(table_class.create_at.desc()).all()
 		sess.close()
@@ -34,6 +38,7 @@ def queryAllDesc(table_class,offset=None,limit=None):
 		sess=DBSession()
 		qClass=sess.query(table_class).order_by(table_class.create_at.desc()).offset(offset).limit(limit).all()
 		sess.close()
+
 
 	for user in qClass:
 		user.passwd='******'
@@ -125,7 +130,6 @@ def signout_api():
 	resp = make_response()
 	resp.set_cookie('huusession', '', expires=0)
 	return resp
-
 
 if __name__=='__main__':
 	app.run(debug=True)
