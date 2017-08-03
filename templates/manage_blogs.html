@@ -2,9 +2,9 @@
 
 {% block style %}
 <style>
-table th,td{
+/* table th,td{
     width: 33.33%;
-}
+} */
 
 </style>
 {% endblock %}
@@ -12,25 +12,28 @@ table th,td{
 {% block content %}
 <div class="container">
     <ol class="breadcrumb">
-        <li><a href="/manage/blogs">日志</a></li>
+        <li class="active" >日志</li>
         <li><a href="#">评论</a></li>
-        <li class="active">用户</li>
+        <li><a href="/manage/users">用户</a></li>
     </ol>
+    <a href="/manage/blog/create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>新日志</a>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>用户名称</th>
-                    <th>电子邮件</th>
-                    <th>注册时间</td>
+                    <th>标题</th>
+                    <th>作者</th>
+                    <th>创建时间</td>
+                    <th>操作</th>
                 </tr>
             </thead>
             <tbody>
-                {% for user in users%}
+                {% for blog in blogs%}
                 <tr>
-                    <td>{{user.name}}</td>
-                    <td>{{user.email}}</td>
-                    <td>{{user.create_at | timeFormat}}</td>
+                    <td><a href="/manage/blog/edit?id={{blog.id}}">{{blog.name}}</a></td>
+                    <td>{{blog.user_name}}</td>
+                    <td>{{blog.create_at | timeFormat}}</td>
+                    <td><a href="/manage/blog/edit?id={{blog.id}}"><span class="glyphicon glyphicon-pencil"></span></a>  <a href="/api/blog/delete?id={{blog.id}}"><span class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>
                 {%endfor%}
             </tbody>
@@ -42,7 +45,7 @@ table th,td{
       <ul class="pagination ">
         {% if page.has_prev %}
         <li>
-          <a href="/manage/users?page={{page.page_index-1}}" aria-label="Previous">
+          <a href="/manage/blogs?page={{page.page_index-1}}" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
           </a>
         </li>
@@ -58,7 +61,7 @@ table th,td{
 
         {% if page.has_next %}
         <li>
-          <a href="/manage/users?page={{page.page_index+1}}" aria-label="Next">
+          <a href="/manage/blogs?page={{page.page_index+1}}" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
           </a>
         </li>

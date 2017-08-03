@@ -1,0 +1,71 @@
+{% extends "__base__.html" %}
+{% block style %}
+<style>
+textarea{
+    margin-bottom: 20px;
+}
+.form-inline{
+    margin-bottom: 20px;
+}
+    
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="/manage/blogs">日志</a></li>
+        <li><a href="#">评论</a></li>
+        <li><a href="/manage/users">用户</a></li>
+    </ol>
+    <div id="blog">
+        <label for="blog-title">&nbsp;&nbsp;&nbsp;标题:</label>
+        <textarea class="form-control" rows="1" id="blog-title" placeholder="标题" v-model="name"></textarea>
+        <label for="blog-summary">&nbsp;&nbsp;&nbsp;摘要:</label>
+        <textarea class="form-control" rows="3" id="blog-summary" placeholder="摘要" v-model="summary"></textarea>
+        <label for="blog-content">&nbsp;&nbsp;&nbsp;正文:</label>
+        <textarea class="form-control" rows="15" id="blog-content" placeholder="正文" v-model="content"></textarea>
+        <form class="form-inline">
+            <button type="submit" class="btn btn-primary" v-on:click="createBlog">保存</button>
+            <a href="/manage/blogs" class="btn btn-default">取消</a>      
+        </form>
+    </div>
+
+</div>
+ 
+{% endblock %}
+
+{% block scripts%}
+<script src="https://unpkg.com/vue"></script>
+<script>
+    var app=new Vue({
+        el:"#blog",
+        data:{
+            name:'',
+            summary:'',
+            content:''
+        },
+        methods:{
+            createBlog: function(event){
+                event.preventDefault()
+                 if (app.$data.name=='' |app.$data.summary=='' |app.$data.content=='' ){
+                    alert('文章不完整')
+                    return
+                 }            
+                $.post('/api/blog/create',{
+                    user_id:'{{user.id}}',
+                    user_name:'{{user.name}}',
+                    user_image:'{{user.image}}',
+                    name:app.$data.name,
+                    summary:app.$data.summary,
+                    content:app.$data.content
+                },function(data){                  
+                    if(data=='ok'){
+                        return location.assign('/manage/blogs')
+                    }
+                })
+            }
+        }
+
+    })
+</script>
+{% endblock %}

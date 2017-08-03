@@ -95,15 +95,13 @@ $(document).ready(function(){
                     email:$("#emailaddr").val().trim(),
                     passwd:$("#passwd").val().trim()
                 },function(data){
-                    if (data=='ok'){
-                       return location.assign('/'); 
-                    }
                     if(data=='usernameError'){
                         alert('用户名已经被注册')
-                    }
-                    if(data=='emailError'){
+                    }else if(data=='emailError'){
                         alert('邮箱已经被注册')
-                    }                                       
+                    }else{
+                       return location.assign('/'); 
+                    }                                     
                 })              
             }
         }else{

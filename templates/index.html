@@ -20,46 +20,50 @@
     <div class="row">      
         <div class="col-md-9">
             <div class="main-content">
+            {% for blog in blogs %}
             <div class="panel panel-info">
                 <div class="panel-body blog-content">
-                    <h3><a href="#" >重构Bootstrap</a><small class="blog-time">   发表于2017.01.01</small></h3>                                            
-                    <p>summary</p>
-                    <p><a href="#" >继续阅读>></a></p>
-                </div>
-            </div>
-            <div class="panel panel-info">
-                <div class="panel-body blog-content">
-                    <h3><a href="#" >重构Bootstrap</a><small class="blog-time">   发表于2017.01.01</small></h3> 
+                    <h3><a href="#" >{{blog.name}}</a><small class="blog-time">   发表于{{blog.create_at | timeFormat}}</small></h3> 
                                                 
-                    <p>summary</p>
-                    <p><a href="#" >继续阅读>></a></p>
-                </div>
-            </div><div class="panel panel-info">
-                <div class="panel-body blog-content">
-                    <h3><a href="#" >重构Bootstrap</a><small class="blog-time">   发表于2017.01.01</small></h3>
-                                                  
-                    <p>萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶
-                    萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶顶萨顶</p>
+                    <p>{{blog.summary}}</p>
                     <p><a href="#" >继续阅读>></a></p>
                 </div>
             </div>
+            {% endfor %}
             <div class="pages">
-                <nav aria-label="Page navigation">           
-                <ul class="pagination pagination-sm">
-                <li class="disabled">
-                  <a href="#" aria-label="Previous" > 
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="active"><a href="#" >1</a></li>
-                
-                <li>
-                  <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-                </nav>
+                 <nav aria-label="Page navigation" >
+      <ul class="pagination ">
+        {% if page.has_prev %}
+        <li>
+          <a href="/?page={{page.page_index-1}}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        {% else %}
+        <li class="disabled">
+          <span>
+            <span aria-hidden="true">&laquo;</span>
+          </span>
+        </li>
+        {% endif %}
+
+        <li class="active"><a href="#">{{page.page_index}}</a></li>
+
+        {% if page.has_next %}
+        <li>
+          <a href="/?page={{page.page_index+1}}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        {% else %}
+        <li class="disabled">
+          <span>
+            <span aria-hidden="true">&raquo;</span>
+          </span>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
             </div> 
             </div>
             
