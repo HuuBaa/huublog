@@ -1,0 +1,103 @@
+{% extends "__base__.html" %} {% block style %}
+<style>
+.time {
+    font-size: 12px;
+    color: rgb(153, 153, 153);
+}
+.media{
+    border: 1px solid rgb(250, 250, 250);
+    border-radius: 3px;
+    padding: 5px;
+    background-color: rgb(250, 250, 250);
+    margin-bottom: 20px;
+}
+</style>
+{% endblock %} 
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            <div id="blog-content">
+                <h2>{{blog.name}}</h2>
+                <p></p>
+                <p class="time">{{blog.create_at | timeFormat}}</p>
+                <p></p>
+                <p>{{blog.content}}</p>
+            </div>
+            <hr>
+            {% if user%}
+            <div id="create-comments">
+                <h3>发表评论</h3>
+                <div class="media">
+                    <div class="media-left media-middle">
+                        <a href="#">
+      <img class="media-object" src="{{blog.user_image}}" alt="...">
+    </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{user.name}}</h4>(当前用户)                        
+                    </div>                    
+                </div>
+                <textarea class="form-control" rows="5" id="comment-content"></textarea>
+                <p></p>
+                <p></p> 
+                <a class="btn btn-primary" id="createComment">发表评论</a>
+            </div>
+            <hr>
+            {% endif %}
+            
+            
+            <div id="blog-comments">
+                <h3>最新评论</h3>
+            {% if comments%}
+                {% for comment in comments%}
+                <div class="media">
+                    <div class="media-left media-middle">
+                        <a href="#">
+      <img class="media-object" src="{{comment.user_image}}">
+    </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{comment.user_name}}</h4>
+                        <p class="time">{{comment.create_at | timeFormat}}</p>
+                        {{comment.content}}
+                    </div>                    
+                </div>
+                {% endfor %}
+            </div>
+                
+            {% else %}            
+                <h3>最新评论</h3>
+                <p>还没有人评论...</p>               
+            {% endif %}
+        </div>
+        <div class="col-sm-3">
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+    $('#createComment').on('click',function(){  
+        if($("#comment-content").val().trim()==''){
+            alert("评论为空")
+            return
+        }
+        $.post('/api/comments',{
+        blog_id:'{{blog.id}}',
+        user_id:'{{user.id}}',
+        user_name:'{{user.name}}',
+        user_image:'{{user.image}}',
+        content:$("#comment-content").val().trim()
+        },function(data){
+            if(data=="notlogin"){
+                return location.assign('/login')
+            }
+            return location.assign('/blog/'+'{{blog.id}}')
+        })
+    })
+   
+
+</script>
+{% endblock%}

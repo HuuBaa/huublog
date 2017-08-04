@@ -27,6 +27,8 @@
     </style>
     {% block style %}
     {% endblock %}
+    {% block script %}
+    {% endblock %}
 </head>
 
 <body>
@@ -53,7 +55,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user active"></span>  {{user.name}}</span></a>
                         <ul class="dropdown-menu manage-page">
-                            <li><a href="/manage/users"><span class="glyphicon glyphicon-align-justify"></span>  管理界面</a></li>
+                            <li><a href="/manage/blogs"><span class="glyphicon glyphicon-align-justify"></span>  管理界面</a></li>
                         </ul>
                     </li>
                     {% else %}

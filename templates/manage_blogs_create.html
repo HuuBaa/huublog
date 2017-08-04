@@ -14,7 +14,7 @@ textarea{
 <div class="container">
     <ol class="breadcrumb">
         <li><a href="/manage/blogs">日志</a></li>
-        <li><a href="#">评论</a></li>
+        <li><a href="/manage/comments">评论</a></li>
         <li><a href="/manage/users">用户</a></li>
     </ol>
     <div id="blog">
@@ -47,7 +47,7 @@ textarea{
         methods:{
             createBlog: function(event){
                 event.preventDefault()
-                 if (app.$data.name=='' |app.$data.summary=='' |app.$data.content=='' ){
+                 if (app.$data.name.trim()=='' |app.$data.summary.trim()=='' |app.$data.content.trim()=='' ){
                     alert('文章不完整')
                     return
                  }            
@@ -58,10 +58,8 @@ textarea{
                     name:app.$data.name,
                     summary:app.$data.summary,
                     content:app.$data.content
-                },function(data){                  
-                    if(data=='ok'){
-                        return location.assign('/manage/blogs')
-                    }
+                },function(data){                                     
+                    return location.assign('/manage/blogs')                   
                 })
             }
         }

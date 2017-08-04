@@ -23,10 +23,10 @@
             {% for blog in blogs %}
             <div class="panel panel-info">
                 <div class="panel-body blog-content">
-                    <h3><a href="#" >{{blog.name}}</a><small class="blog-time">   发表于{{blog.create_at | timeFormat}}</small></h3> 
+                    <h3><a href="/blog/{{blog.id}}" >{{blog.name}}</a><small class="blog-time">   发表于{{blog.create_at | timeFormat}}</small></h3> 
                                                 
                     <p>{{blog.summary}}</p>
-                    <p><a href="#" >继续阅读>></a></p>
+                    <p><a href="/blog/{{blog.id}}" >继续阅读>></a></p>
                 </div>
             </div>
             {% endfor %}
@@ -66,8 +66,6 @@
     </nav>
             </div> 
             </div>
-            
- 
         </div>
         <div class="col-md-3">
             <div class="fri-links">
@@ -86,7 +84,3 @@
 </div>
     </div>
 {% endblock %} 
-{% block scripts%}
-<script>
-</script>
-{% endblock %}

@@ -10,11 +10,11 @@
 {% endblock %}
 {% block script%}
 <script>
-   function delBlog(id){
+   function delComment(id){
     if (confirm("确定要删除？删除后不能恢复")){
-        $.get("/api/blog/delete?id="+id,function(data){
+        $.get("/api/comment/delete?id="+id,function(data){
             if(data=='ok'){
-                return location.assign('/manage/blogs')
+                return location.assign('/manage/comments')
             }
         })
     }
@@ -25,8 +25,8 @@
 {% block content %}
 <div class="container">
     <ol class="breadcrumb">
-        <li class="active" >日志</li>
-        <li><a href="/manage/comments">评论</a></li>
+        <li><a href="/manage/blogs">日志</a></li>
+        <li class="active">评论</li>
         <li><a href="/manage/users">用户</a></li>
     </ol>
     <a href="/manage/blog/create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>新日志</a>
@@ -34,19 +34,19 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>标题</th>
                     <th>作者</th>
+                    <th>内容</th>
                     <th>创建时间</td>
                     <th>操作</th>
                 </tr>
             </thead>
             <tbody>
-                {% for blog in blogs%}
+                {% for comment in comments%}
                 <tr>
-                    <td><a href="/blog/{{blog.id}}">{{blog.name}}</a></td>
-                    <td>{{blog.user_name}}</td>
-                    <td>{{blog.create_at | timeFormat}}</td>
-                    <td><a href="/manage/blog/edit?id={{blog.id}}"><span class="glyphicon glyphicon-pencil"></span></a>     <a href=""><span class="glyphicon glyphicon-trash"  onclick="delBlog('{{blog.id}}')"></span></a></td>
+                    <td><a href="#">{{comment.user_name}}</a></td>
+                    <td>{{comment.content}}</td>
+                    <td>{{comment.create_at | timeFormat}}</td>
+                    <td> <a href=""><span class="glyphicon glyphicon-trash"  onclick="delComment('{{comment.id}}')"></span></a></td>
                 </tr>
                 {%endfor%}
             </tbody>

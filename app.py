@@ -205,7 +205,7 @@ def delete_blog_api():
 			sess.close()
 		else:
 			return redirect(url_for('login'))
-		return redirect(url_for('manage_blogs'))
+		return 'ok'
 
 @app.route('/manage/blogs',methods=['GET'])
 def manage_blogs():
@@ -223,10 +223,79 @@ def manage_blogs():
 		else:
 			return redirect(url_for('login'))
 
+@app.route('/blog/<blog_id>')
+def get_blog(blog_id):
+	try:
+		sess=DBSession()
+		blog=sess.query(Blogs).filter(Blogs.id==blog_id).one()
+		sess.close()
+	except:
+		blog=None
+		return 'can not find the blog'
+	user=g.get('user',None)
+	try:
+		sess=DBSession()
+		comments=sess.query(Comments).filter(Comments.blog_id==blog_id).all()
+		sess.close()
+	except:
+		comments=None
+
+	return render_template("blog.html",blog=blog,user=user,comments=comments)
+
+@app.route('/api/comments',methods=['POST'])
+def create_comments_api():
+	user=g.get('user',None)
+	if user is  None:
+		return 'notlogin'
+	else:
+		blog_id=request.form['blog_id']
+		user_id=request.form['user_id']
+		user_name=request.form['user_name']
+		user_image=request.form['user_image']
+		content=request.form['content']
+		sess=DBSession()
+		sess.add(Comments(blog_id=blog_id,user_id=user_id,user_name=user_name,user_image=user_image,content=content))
+		sess.commit()
+		sess.close()
+		return 'ok'
+
+@app.route('/manage/comments',methods=['GET'])
+def manage_comments():
+	user=g.get('user',None)
+	if user is None:
+		return redirect(url_for('login'))
+	else:
+		if user.admin:
+			item_count=queryNumById(Comments)
+			page_arg=request.args.get('page','1')
+			page_index=getPageStr(page_arg)
+			page=Page(item_count,page_index)
+			comments_list=queryAllDesc(Comments,page.offset,page.limit)
+			return render_template('manage_comments.html',comments=comments_list,page=page,user=user)
+		else:
+			return redirect(url_for('login'))
+
+@app.route('/api/comment/delete',methods=['GET'])
+def delete_comment_api():
+	user=g.get('user',None)
+	comment_id=request.args.get('id','')
+	if user is  None:
+		return redirect(url_for('login'))
+	else:
+		if user.admin:
+			sess=DBSession()
+			comment=sess.query(Comments).filter(Comments.id==comment_id).delete()
+			sess.commit()
+			sess.close()
+		else:
+			return redirect(url_for('login'))
+		return 'ok'
+
 #注册页面
 @app.route('/register',methods=['GET'])
 def register():
 	return render_template('register.html')
+
 #创建用户api
 @app.route('/api/users',methods=['POST'])
 def register_api():
