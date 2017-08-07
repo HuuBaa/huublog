@@ -16,16 +16,25 @@ import hashlib
 app=Flask(__name__)
 
 def timeFormat(create_at):
+	now=datetime.now().timestamp()
 	timestamp=float(create_at)
+	delta=int(now-timestamp)
+	if delta < 60:
+		return '刚刚'
+	if delta < 3600:
+		return '%s分钟前'%(delta//60)
+	if delta < 86400:
+		return '%s小时前'%(delta//3600)
+	if delta < 604800:
+		return '%s天前'%(delta//86400)
 	dt=datetime.fromtimestamp(timestamp)
-	return dt.strftime('%Y-%m-%d %H:%M:%S')
+	return dt.strftime('%Y年%m月%d日 %H点%M分%S秒')
 app.add_template_filter(timeFormat,'timeFormat')
 
 def queryNumById(table_class):
 	sess=DBSession()
 	qNum=sess.query(func.count(table_class.id)).scalar()
 	sess.close()
-
 	return qNum
 
 def queryAllDesc(table_class,offset=None,limit=None):
@@ -356,4 +365,4 @@ def signout_api():
 	return resp
 
 if __name__=='__main__':
-	app.run(debug=True)
+	app.run()

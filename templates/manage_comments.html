@@ -36,7 +36,7 @@
                 <tr>
                     <th>作者</th>
                     <th>内容</th>
-                    <th>创建时间</td>
+                    <th style="text-align: center;">创建时间</td>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -45,7 +45,7 @@
                 <tr>
                     <td><a href="#">{{comment.user_name}}</a></td>
                     <td>{{comment.content}}</td>
-                    <td>{{comment.create_at | timeFormat}}</td>
+                    <td style="text-align: center;">{{comment.create_at | timeFormat}}</td>
                     <td> <a href=""><span class="glyphicon glyphicon-trash"  onclick="delComment('{{comment.id}}')"></span></a></td>
                 </tr>
                 {%endfor%}

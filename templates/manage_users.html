@@ -22,7 +22,7 @@ table th,td{
                 <tr>
                     <th>用户名称</th>
                     <th>电子邮件</th>
-                    <th>注册时间</td>
+                    <th style="text-align: center;">注册时间</td>
                 </tr>
             </thead>
             <tbody>
@@ -30,7 +30,7 @@ table th,td{
                 <tr>
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
-                    <td>{{user.create_at | timeFormat}}</td>
+                    <td style="text-align: center;">{{user.create_at | timeFormat}}</td>
                 </tr>
                 {%endfor%}
             </tbody>

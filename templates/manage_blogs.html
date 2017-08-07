@@ -36,7 +36,7 @@
                 <tr>
                     <th>标题</th>
                     <th>作者</th>
-                    <th>创建时间</td>
+                    <th style="text-align: center;">创建时间</td>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -45,7 +45,7 @@
                 <tr>
                     <td><a href="/blog/{{blog.id}}">{{blog.name}}</a></td>
                     <td>{{blog.user_name}}</td>
-                    <td>{{blog.create_at | timeFormat}}</td>
+                    <td style="text-align: center;">{{blog.create_at | timeFormat}}</td>
                     <td><a href="/manage/blog/edit?id={{blog.id}}"><span class="glyphicon glyphicon-pencil"></span></a>     <a href=""><span class="glyphicon glyphicon-trash"  onclick="delBlog('{{blog.id}}')"></span></a></td>
                 </tr>
                 {%endfor%}

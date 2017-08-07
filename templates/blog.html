@@ -23,7 +23,7 @@
                 <p></p>
                 <p class="time">{{blog.create_at | timeFormat}}</p>
                 <p></p>
-                <p>{{blog.content}}</p>
+                <p style="word-break:break-all; word-wrap:break-word;">{{blog.content}}</p>
             </div>
             <hr>
             {% if user%}
@@ -49,8 +49,9 @@
             
             
             <div id="blog-comments">
-                <h3>最新评论</h3>
+                
             {% if comments%}
+                <h3>最新评论</h3>
                 {% for comment in comments%}
                 <div class="media">
                     <div class="media-left media-middle">
